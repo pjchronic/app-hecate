@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { Resend } from "resend";
 import Invite from "@/components/templatesDeEmail/Invite";
 import Welcome from "@/components/templatesDeEmail/Welcome";
@@ -19,7 +18,7 @@ export async function mailDelivery(packageDelivery: PackageDeliveryInterface) {
   let from: string;
 
   switch (packageDelivery.templateType) {
-    case "invite":
+    case "invite": // tratativa para emails de convite
       assunto = "Você recebeu um convite do Hecate app!";
       from = "convite";
       template = (
@@ -30,13 +29,13 @@ export async function mailDelivery(packageDelivery: PackageDeliveryInterface) {
       );
       break;
 
-    case "welcome":
+    case "welcome": // tratativa para emails após o cadastro
       assunto = "Seja muito bem-vindo(a)";
       from = "boasvindas";
       template = <Welcome nome={packageDelivery.nomeCompleto} />;
       break;
 
-    case "forgotPassoword":
+    case "forgotPassoword": // tratativa para emails de esqueci minha senha
       assunto = "Redefina sua senha";
       from = "senha";
       template = (

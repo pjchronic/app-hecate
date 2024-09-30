@@ -25,15 +25,15 @@ async function invite(req: NextApiRequest, res: NextApiResponse) {
       nomeCompleto: guest.nomeCompleto!,
     };
 
-    await mailDelivery(packageDelivery);
+    const mailResponse = await mailDelivery(packageDelivery);
 
-    res.status(200).json({ message: "Convite enviado com sucesso!" });
+    res
+      .status(200)
+      .json({ message: "Convite enviado com sucesso!", mailResponse });
   } catch (error) {
-    res.status(500).json({ message: "Erro ao enviar convite!" });
+    res.status(500).json({ message: "Erro ao enviar convite!", error });
   }
 }
 //#endregion
-
-
 
 export { invite as POST };

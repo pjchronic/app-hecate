@@ -11,11 +11,14 @@ export function jwtGenerateToken(object: any, time: string) {
 }
 
 export function jwtDecoderToken(token: string) {
-  if (secret) {
-    const decoded: any = jwt.verify(token, secret);
+  try {
+    const decoded: any = jwt.verify(token, secret!);
     return decoded;
-
-  } else {
-    throw new Error("Secret não definida");
+  } catch (error: any) {
+    if (error.name === "TokenExpiredError") {
+      throw new Error("Token expirado:", error.message);
+    } else {
+      throw new Error("Erro ao verificar o token:", error.message);
+    }
   }
 }
