@@ -4,14 +4,19 @@ import "./globals.css";
 
 //#region ----- fonts
 const labelAtribute = localFont({
-    src: "./fonts/Jaini-Regular.ttf",
-    variable: "--label-atribute",
+  src: "./fonts/Jaini-Regular.ttf",
+  variable: "--label-atribute",
 });
 
 const contentInputAtribute = localFont({
-    src: "./fonts/Amita-Regular.ttf",
-    variable: "--content-input-atribute"
-})
+  src: "./fonts/Amita-Regular.ttf",
+  variable: "--content-input-atribute",
+});
+
+const contentFont = localFont({
+  src: "./fonts/Jaldi-Regular.ttf",
+  variable: "--content-font",
+});
 //#endregion
 
 export const metadata: Metadata = {
@@ -26,7 +31,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={`${labelAtribute.variable} ${contentInputAtribute.variable}`}>
+      <body
+        className={`${labelAtribute.variable} ${contentInputAtribute.variable} ${contentFont.variable}`}
+      >
         {children}
       </body>
     </html>
