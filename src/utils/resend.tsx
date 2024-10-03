@@ -1,7 +1,7 @@
 import { Resend } from "resend";
-import Invite from "@/components/templatesDeEmail/Invite";
-import Welcome from "@/components/templatesDeEmail/Welcome";
-import ForgotPassword from "@/components/templatesDeEmail/ForgotPassword";
+import Invite from "@/components/templatesDeEmail/invite/Invite";
+import Welcome from "@/components/templatesDeEmail/welcome/Welcome";
+import ForgotPassword from "@/components/templatesDeEmail/forgotPassword/ForgotPassword";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 

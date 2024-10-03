@@ -1,15 +1,13 @@
 "use client";
 import Image from "next/image";
 import styles from "./page.module.css";
-import Invite from "@/components/templatesDeEmail/Invite";
+import Invite from "@/components/templatesDeEmail/invite/Invite";
 
 export default function Home() {
   return (
     <div className={styles.page}>
-        <Invite url="teste" nome="teste" />
-      <main className={styles.main}>
-        
-      </main>
+      <Invite url="teste" nome="teste" />
+
       <footer className={styles.footer}>
         <a
           href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"

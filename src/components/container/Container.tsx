@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 interface ContainerInterface {
   tag?: keyof JSX.IntrinsicElements;
-  styles?: ReturnType<typeof css>;
+  styles?: ReturnType<typeof css>; //testar depois se funciona com string para facilitar sintax
   width?: string;
   children?: React.ReactNode;
 }
@@ -14,7 +14,7 @@ const Container = styled.div.withConfig({
   display: flex;
   align-itens: center;
   justify-content: center;
-  width: ${(props) => props.width || "100%"};
+  width: ${(props) => props.width ?? "100%"};
   padding: 2rem;
   gap: 2rem;
   border-radius: 4px;

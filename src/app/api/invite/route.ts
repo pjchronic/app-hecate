@@ -1,7 +1,7 @@
 import Guest from "@/app/models/guestOrm";
 import { GuestInputInterface } from "./interfaces";
 import { jwtDecoderToken, jwtGenerateToken } from "@/utils/jwtToken";
-import { mailDelivery, PackageDeliveryInterface } from "@/utils/resend";
+import { mailDelivery } from "@/utils/resend";
 import { NextResponse } from "next/server";
 import { tablesInitializer } from "@/utils/middlewaresFunctions/initdatabaseMiddleware";
 import Users from "@/app/models/usersOrm";
@@ -77,14 +77,12 @@ async function invite(req: Request) {
         token: newToken,
       });
 
-      const packageDelivery: PackageDeliveryInterface = {
+      const mailResponse = await mailDelivery({
         destinatario: guest.email!,
         templateType: "invite",
         url: `http://${process.env.DOMINIO}/cadastro?token=${newToken}`,
         nomeCompleto: guest.nomeCompleto!,
-      };
-
-      const mailResponse = await mailDelivery(packageDelivery);
+      });
 
       return NextResponse.json(
         { message: "Convite enviado com sucesso!", mailResponse },
