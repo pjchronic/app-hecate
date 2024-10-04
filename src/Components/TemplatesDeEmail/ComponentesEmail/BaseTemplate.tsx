@@ -1,4 +1,4 @@
-import { theme } from "@/theme/theme";
+import { theme } from "@/theme/Theme";
 import { Html, Body, Container } from "@react-email/components";
 import React from "react";
 

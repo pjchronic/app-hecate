@@ -3,7 +3,7 @@ import { GuestInputInterface } from "./interfaces";
 import { jwtDecoderToken, jwtGenerateToken } from "@/utils/jwtToken";
 import { mailDelivery } from "@/utils/resend";
 import { NextResponse } from "next/server";
-import { tablesInitializer } from "@/utils/middlewaresFunctions/initdatabaseMiddleware";
+import { tablesInitializer } from "@/utils/MiddlewaresFunctions/initdatabaseMiddleware";
 import Users from "@/app/models/usersOrm";
 
 //#region ------ Envio de convite
@@ -57,7 +57,7 @@ async function invite(req: Request) {
 
         return NextResponse.json(
           {
-            message: "Token expirado, enviamos um novo link para o seu e-mail",
+            message: "Token expirado, enviamos um novo link para o e-mail do convidado",
           },
           { status: 401 }
         );

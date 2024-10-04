@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { tablesInitializer } from "./utils/middlewaresFunctions/initdatabaseMiddleware";
+import { tablesInitializer } from "./utils/MiddlewaresFunctions/initdatabaseMiddleware";
 
 export async function middleware(request: NextRequest) {
   const endPoint = request.nextUrl;

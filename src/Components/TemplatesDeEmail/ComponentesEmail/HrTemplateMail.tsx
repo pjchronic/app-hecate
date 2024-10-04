@@ -1,4 +1,4 @@
-import { theme } from "@/theme/theme";
+import { theme } from "@/theme/Theme";
 import { Hr } from "@react-email/components";
 
 const HrTemplateMail = () => {

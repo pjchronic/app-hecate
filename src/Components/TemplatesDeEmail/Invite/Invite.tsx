@@ -1,9 +1,8 @@
-import { theme } from "@/theme/theme";
 import { Column, Img, Link, Row, Text } from "@react-email/components";
 import React, { ReactElement } from "react";
-import HeaderTemplateMail from "../componentesEmail/HeaderTemplateMail";
-import HrTemplateMail from "../componentesEmail/HrTemplateMail";
-import BaseTemplate from "../componentesEmail/BaseTemplate";
+import HeaderTemplateMail from "../ComponentesEmail/HeaderTemplateMail";
+import HrTemplateMail from "../ComponentesEmail/HrTemplateMail";
+import BaseTemplate from "../ComponentesEmail/BaseTemplate";
 
 interface InviteProps {
   url: string;

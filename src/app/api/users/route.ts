@@ -15,7 +15,7 @@ async function cadastro(req: NextApiRequest, res: NextApiResponse) {
       const nomeToken = jwtDecoderToken(token);
 
       const invite: any = await Guest.findAll({
-        attributes: ["idConvite", "email"],
+        attributes: ["token", "email"],
         where: {
           nomeCompleto: nomeToken.data,
         },
@@ -25,7 +25,7 @@ async function cadastro(req: NextApiRequest, res: NextApiResponse) {
         res.status(404).json({
           erro: "Convite não consta na base. Contate o seu anfitrião para solicitar o seu.",
         });
-      } else {
+      } else { // falta verificar se token está ou não expirado
         await Users.create({
           idConvite: invite.idConvite,
           email: invite.email,
