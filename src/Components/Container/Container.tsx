@@ -1,24 +1,25 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 interface ContainerInterface {
-  tag?: keyof JSX.IntrinsicElements;
-  styles?: ReturnType<typeof css>; //testar depois se funciona com string para facilitar sintax
+  as?: keyof JSX.IntrinsicElements;
+  sx?: string;
   width?: string;
+  radius?: boolean;
   children?: React.ReactNode;
 }
 
-const Container = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== "styles",
+const Container = styled.div.withConfig({ //width pode ser definido apenas pela prop
+  shouldForwardProp: (prop) => prop !== "sx",
 })<ContainerInterface>`
   display: flex;
-  align-itens: center;
+  align-items: center;
   justify-content: center;
-  width: ${(props) => props.width ?? "100%"};
+  width: ${(props) => props.width ?? "100%"} !important; 
   padding: 2rem;
   gap: 2rem;
-  border-radius: 4px;
-  ${(props) => props.styles}
+  border-radius: ${(props) => props.radius ? "4px" : "none"};
+  ${(props) => props.sx}
 `;
 
 export default Container;

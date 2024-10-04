@@ -1,56 +1,96 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
 import Users from "@/app/models/usersOrm";
 import Guest from "@/app/models/guestOrm";
 import { jwtDecoderToken } from "@/utils/jwtToken";
 import { mailDelivery, PackageDeliveryInterface } from "@/utils/resend";
+import { getQueryString } from "@/utils/getQueryString";
+import { tablesInitializer } from "@/utils/MiddlewaresFunctions/initdatabaseMiddleware";
+import { NextResponse } from "next/server";
 
 //#region ------ Cadastro de usuário
-async function cadastro(req: NextApiRequest, res: NextApiResponse) {
-  const token: string | undefined = req.query.token as string | undefined;
-  const senha: string = await bcrypt.hash(req.body.senha, 10);
+async function cadastro(req: Request) {
+  await tablesInitializer();
+
+  const token: string = getQueryString(req, "token");
+  const body = await req.json();
+
+  const senha: string = await bcrypt.hash(body.senha, 10);
 
   try {
     if (token) {
-      const nomeToken = jwtDecoderToken(token);
+      // se existir token na querystring
+      const verifyToken = jwtDecoderToken(token);
 
-      const invite: any = await Guest.findAll({
-        attributes: ["token", "email"],
-        where: {
-          nomeCompleto: nomeToken.data,
-        },
-      });
+      if (!(verifyToken === "jwt expired")) {
+        // Se token não estiver expirado
 
-      if (invite.length === 0) {
-        res.status(404).json({
-          erro: "Convite não consta na base. Contate o seu anfitrião para solicitar o seu.",
-        });
-      } else { // falta verificar se token está ou não expirado
-        await Users.create({
-          idConvite: invite.idConvite,
-          email: invite.email,
-          senha,
-          nomeCompleto: nomeToken.data,
+        const existCadastro = await Users.findAll({
+          where: {
+            nomeCompleto: verifyToken.object,
+          },
         });
 
-        const packageDelivery: PackageDeliveryInterface = {
-          destinatario: invite.email,
-          templateType: "welcome",
-          nomeCompleto: nomeToken.data,
-        };
-        await mailDelivery(packageDelivery);
-
-        res.status(200).json({
-          message: "Cadastro feito com sucesso! Seja bem-vindo(a) ao Hecate!",
+        const existConvite = await Guest.findAll({
+          attributes: ["idConvite", "email"],
+          where: { nomeCompleto: verifyToken.object },
         });
+
+        if (existCadastro.length >= 1) {
+          // Verifica se já está cadastrado
+          return NextResponse.json(
+            { message: "O Aventureiro já faz parte do app Hecate" },
+            { status: 409 }
+          );
+        } else if (existConvite.length === 0) {
+          // Verifica se realmente existe um convite na base
+          return NextResponse.json(
+            {
+              message:
+                "Não existe convite para este token. Solicite um novo convite ao seu anfitrião",
+            },
+            { status: 404 }
+          );
+        } else {
+          //não existe cadastro mas existe convite
+
+          await Users.create({
+            idConvite: existConvite[0].dataValues.idConvite,
+            email: existConvite[0].dataValues.email,
+            nomeCompleto: verifyToken.object,
+            senha,
+          });
+
+          await mailDelivery({
+            destinatario: existConvite[0].dataValues.email!,
+            templateType: "welcome",
+            nomeCompleto: verifyToken.object!,
+          });
+
+          return NextResponse.json(
+            { message: "Cadastro realizado com sucesso!", mailDelivery },
+            { status: 200 }
+          );
+        }
+      } else {
+        return NextResponse.json(
+          {
+            message:
+              "Token expirado, solicite um novo convite ao seu anfitrião",
+          },
+          { status: 401 }
+        );
       }
     } else {
-      res.status(404).json({
-        erro: "Token não fornecido. Solicite um convite ao seu anfitrião",
-      });
+      return NextResponse.json(
+        { message: "Token não encontrado" },
+        { status: 404 }
+      );
     }
   } catch (error) {
-    res.status(500).json({ message: "Erro ao cadastrar aventureiro!", error });
+    return NextResponse.json(
+      { message: "Erro ao seguir com o cadastro", error },
+      { status: 500 }
+    );
   }
 }
 //#endregion

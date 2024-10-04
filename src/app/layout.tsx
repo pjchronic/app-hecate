@@ -1,6 +1,6 @@
+import { GlobalStyle } from "@/theme/GlobalStyle";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
 
 //#region ----- fonts
 const labelAtribute = localFont({
@@ -34,6 +34,7 @@ export default function RootLayout({
       <body
         className={`${labelAtribute.variable} ${contentInputAtribute.variable} ${contentFont.variable}`}
       >
+        <GlobalStyle />
         {children}
       </body>
     </html>

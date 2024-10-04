@@ -25,7 +25,7 @@ async function invite(req: Request) {
 
     const existCadastro = await Users.findAll({
       where: {
-        nomeCompleto: guest.email,
+        email: guest.email,
       },
     });
 
