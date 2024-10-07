@@ -53,7 +53,7 @@ const ContainerBtn = styled.div.withConfig({
   &:hover {
     transform: scale(1.2);
     color: ${(props) => props.colorHv};
-    background-color: ${theme.colors.papyrusBase};
+    background-color: ${theme.colors.greyBase};
   }
 `;
 const ThemeButton: React.FC<ThemeButtonInterface> = ({ onClick, themeBtn }) => {
