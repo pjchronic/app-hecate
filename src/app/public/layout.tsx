@@ -6,6 +6,7 @@ import Container from "@/Components/Container/Container";
 import ParticlesBackground, {
   ParticlesProps,
 } from "@/Components/ParticlesBackground/ParticlesBackground";
+import { useTheme } from "@/utils/Context/themeContext";
 import { useState } from "react";
 
 interface ModeThemeInterface {
@@ -28,10 +29,12 @@ export default function PublicLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [modeTheme, setModeTheme] = useState<ModeThemeInterface>(dark);
+  const { toggleTheme } = useTheme();
+  const [modeTheme, setModeTheme] = useState<ModeThemeInterface>(dark); //aplicar isso no contexto
 
   const handleTheme = () => {
     setModeTheme((prev) => (prev === dark ? ligth : dark));
+    toggleTheme();
   };
 
   return (

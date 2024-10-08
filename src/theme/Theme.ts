@@ -3,7 +3,7 @@ interface FontAtribute {
   color: string;
 }
 
-interface ThemeInterface {
+export interface ThemeInterface {
   fonts: {
     labelAtribute: FontAtribute;
     contentInputAtribute: FontAtribute;
@@ -15,6 +15,7 @@ interface ThemeInterface {
     papyrusBase: string;
     greyBase: string;
   };
+  themeProvider?: "dark mode" | "light mode";
 }
 
 export const theme: ThemeInterface = {
