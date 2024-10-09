@@ -30,7 +30,7 @@ export default function PublicLayout({
   children: React.ReactNode;
 }) {
   const { toggleTheme } = useTheme();
-  const [modeTheme, setModeTheme] = useState<ModeThemeInterface>(dark); //aplicar isso no contexto
+  const [modeTheme, setModeTheme] = useState<ModeThemeInterface>(dark);
 
   const handleTheme = () => {
     setModeTheme((prev) => (prev === dark ? ligth : dark));

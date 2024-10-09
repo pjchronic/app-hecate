@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   ChangeEventHandler,
   FocusEventHandler,
@@ -17,8 +17,11 @@ interface GenericInputTextInterface {
   value: string | number;
   onBlur?: FocusEventHandler<HTMLInputElement>;
   type?: "text" | "password";
+  msg?: string;
 
   fullWidth?: InputContainerInterface["fullWidth"];
+  success?: InputGenericInterface["success"];
+  error?: InputGenericInterface["error"];
 }
 
 interface InputContainerInterface {
@@ -26,10 +29,15 @@ interface InputContainerInterface {
   fullWidth?: boolean | undefined;
 }
 
+export interface InputGenericInterface {
+  error?: boolean;
+  success?: boolean;
+}
+
 //#endregion
 
 //#region ----Styled Components
-const ignoredProps = { inputContainer: ["fullWidth"] };
+const ignoredProps = { inputContainer: ["fullWidth", "error", "success"] };
 
 const InputContainer = styled.div.withConfig({
   shouldForwardProp: (prop) => !ignoredProps.inputContainer.includes(prop),
@@ -43,6 +51,8 @@ const InputContainer = styled.div.withConfig({
 `;
 
 const LabelInput = styled.label`
+  display: flex;
+  flex-direction: column;
   &:hover p {
     font-size: 1.3rem;
     font-weight: 500;
@@ -56,14 +66,18 @@ const TextLabel = styled.p`
   transition: all 0.4s ease-in-out;
 `;
 
-const InputGeneric = styled.input`
+const InputGeneric = styled.input.withConfig({
+  shouldForwardProp: (prop) => !ignoredProps.inputContainer.includes(prop),
+})<InputGenericInterface>`
   height: 45px;
   width: 100%;
   border-radius: 4px;
   font-family: ${theme.fonts.contentFont.fontFamily};
   font-size: 1.3rem;
   padding: 5px;
-  border: 2px solid ${theme.colors.baseWhite};
+  border: 2px solid
+    ${(props) =>
+      props.error ? "red" : props.success ? "green" : theme.colors.baseWhite};
   transition: all 0.4s ease-in-out;
 
   &:hover {
@@ -76,6 +90,12 @@ const InputGeneric = styled.input`
   }
 `;
 
+const ErrorMessage = styled.span`
+  font-size: 1rem;
+  font-family: ${theme.fonts.contentFont.fontFamily};
+  color: red;
+`;
+
 //#endregion
 
 const GenericInputText: React.FC<GenericInputTextInterface> = ({
@@ -86,6 +106,9 @@ const GenericInputText: React.FC<GenericInputTextInterface> = ({
   onBlur,
   type = "text",
   fullWidth = undefined,
+  success,
+  error,
+  msg,
 }) => {
   return (
     <>
@@ -98,7 +121,10 @@ const GenericInputText: React.FC<GenericInputTextInterface> = ({
             onChange={onChange}
             value={value}
             onBlur={onBlur}
+            success={success}
+            error={error}
           />
+          {msg ? <ErrorMessage>{msg}</ErrorMessage> : ""}
         </LabelInput>
       </InputContainer>
     </>

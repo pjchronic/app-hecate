@@ -2,6 +2,7 @@
 
 import GenericButton from "@/Components/Buttons/GenericButton/GenericButton";
 import Container from "@/Components/Container/Container";
+import FlexForm from "@/Components/FlexForm/FlexForm";
 import GenericInputText from "@/Components/InputsText/GenericInputText/GenericInputText";
 import TextH1 from "@/Components/TextComponents/TextH1";
 import TextLinks from "@/Components/TextComponents/TextLinks";
@@ -19,10 +20,7 @@ export default function Login() {
     email: "",
     senha: "",
   });
-
   const { themeProvider } = useTheme();
-
-  console.log(themeProvider);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,15 +32,7 @@ export default function Login() {
 
     console.log(value);
 
-    switch (name) {
-      case "email":
-        setObjectLogin({ ...objectLogin, email: value });
-        break;
-
-      case "senha":
-        setObjectLogin({ ...objectLogin, senha: value });
-        break;
-    }
+    setObjectLogin({ ...objectLogin, [name]: value });
   };
 
   const formStyle: CSSProperties = {
@@ -63,7 +53,7 @@ export default function Login() {
         sx={`background-color: rgba(227, 227, 227, 0.5); backdrop-filter: blur(5px); border: 1px solid ${theme.colors.baseWhite}; flex-direction: column`}
       >
         <TextH1 fontSize="4rem">Login</TextH1>
-        <form onSubmit={handleSubmit} style={formStyle}>
+        <FlexForm onSubmit={handleSubmit}>
           <GenericInputText
             label="E-mail:"
             name="email"
@@ -85,7 +75,7 @@ export default function Login() {
           <GenericButton themeMode={themeProvider} type="submit">
             Entrar
           </GenericButton>
-        </form>
+        </FlexForm>
       </Container>
     </>
   );

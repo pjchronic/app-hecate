@@ -51,7 +51,7 @@ async function invite(req: Request) {
         await mailDelivery({
           destinatario: guest.email!,
           templateType: "invite",
-          url: `http://${process.env.DOMINIO}/cadastro?token=${newToken}`,
+          url: `http://${process.env.DOMINIO}/public/cadastro?token=${newToken}`,
           nomeCompleto: guest.nomeCompleto!,
         });
 
@@ -80,7 +80,7 @@ async function invite(req: Request) {
       const mailResponse = await mailDelivery({
         destinatario: guest.email!,
         templateType: "invite",
-        url: `http://${process.env.DOMINIO}/cadastro?token=${newToken}`,
+        url: `http://${process.env.DOMINIO}/public/cadastro?token=${newToken}`,
         nomeCompleto: guest.nomeCompleto!,
       });
 
