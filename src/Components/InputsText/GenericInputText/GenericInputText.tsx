@@ -94,6 +94,7 @@ const ErrorMessage = styled.span`
   font-size: 1rem;
   font-family: ${theme.fonts.contentFont.fontFamily};
   color: red;
+  width: 238px;
 `;
 
 //#endregion

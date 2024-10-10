@@ -3,6 +3,9 @@
 import GenericButton from "@/Components/Buttons/GenericButton/GenericButton";
 import Container from "@/Components/Container/Container";
 import FlexForm from "@/Components/FlexForm/FlexForm";
+import GenericAlert, {
+  GenericAlertInterface,
+} from "@/Components/GenericAlert/GenericAlert";
 import GenericInputText, {
   InputGenericInterface,
 } from "@/Components/InputsText/GenericInputText/GenericInputText";
@@ -37,6 +40,11 @@ export default function Cadastro() {
       },
     }
   );
+  const [token, setToken] = useState<string | null>();
+  const [customAlert, setCustomAlert] = useState<GenericAlertInterface>({
+    msg: "",
+    open: false,
+  });
 
   const { themeProvider } = useTheme();
 
@@ -44,14 +52,56 @@ export default function Cadastro() {
     const queryParams = new URLSearchParams(window.location.search);
     const tokenFromQuery = queryParams.get("token");
 
-    console.log(tokenFromQuery);
+    setToken(tokenFromQuery);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("enviado");
+  const handleAlert = (msg: string, open: boolean) => {
+    setCustomAlert({
+      msg,
+      open,
+    });
+
+    setTimeout(() => {
+      setCustomAlert({ ...customAlert, open: false });
+    }, 10000);
   };
 
+  //#region ----- HandleSubmit
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      if (
+        objectCadastro.senha.validation?.success &&
+        objectCadastro.confirmSenha.validation?.success
+      ) {
+        const response = await fetch(`/api/users?token=${token}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ senha: objectCadastro.confirmSenha.content }),
+        });
+
+        const data: { message: string } = await response.json();
+
+        handleAlert(data.message, true);
+      } else {
+        throw new Error(
+          "As senhas não conferem ou não estão tem os parâmetros necessários"
+        );
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        handleAlert(error.message, true);
+      } else {
+        handleAlert(String(error), true);
+      }
+    }
+  };
+
+  //#region ----- HandleChange
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -214,6 +264,8 @@ export default function Cadastro() {
           <GenericButton themeMode={themeProvider}> Cadastrar</GenericButton>
         </FlexForm>
       </Container>
+
+      <GenericAlert msg={customAlert.msg} open={customAlert.open} />
     </>
   );
 }
