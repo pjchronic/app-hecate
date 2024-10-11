@@ -9,6 +9,7 @@ import GenericAlert, {
 import GenericInputText, {
   InputGenericInterface,
 } from "@/Components/InputsText/GenericInputText/GenericInputText";
+import LoadingComponent from "@/Components/LoadingComponent/LoadingComponent";
 import TextH1 from "@/Components/TextComponents/TextH1";
 import { theme } from "@/theme/Theme";
 import { useTheme } from "@/utils/Context/themeContext";
@@ -45,6 +46,7 @@ export default function Cadastro() {
     msg: "",
     open: false,
   });
+  const [loading, setLoaging] = useState<boolean>(false);
 
   const { themeProvider } = useTheme();
 
@@ -63,13 +65,14 @@ export default function Cadastro() {
 
     setTimeout(() => {
       setCustomAlert({ ...customAlert, open: false });
-    }, 10000);
+    }, 8000);
   };
 
   //#region ----- HandleSubmit
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoaging(true);
 
     try {
       if (
@@ -99,6 +102,8 @@ export default function Cadastro() {
         handleAlert(String(error), true);
       }
     }
+
+    setLoaging(false);
   };
 
   //#region ----- HandleChange
@@ -266,6 +271,8 @@ export default function Cadastro() {
       </Container>
 
       <GenericAlert msg={customAlert.msg} open={customAlert.open} />
+
+      {loading ? <LoadingComponent /> : ""}
     </>
   );
 }

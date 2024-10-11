@@ -9,7 +9,6 @@ import styled from "styled-components";
 import { theme } from "@/theme/Theme";
 
 //#region ----Interfaces
-
 interface GenericInputTextInterface {
   label: string;
   name: string;
@@ -33,7 +32,6 @@ export interface InputGenericInterface {
   error?: boolean;
   success?: boolean;
 }
-
 //#endregion
 
 //#region ----Styled Components
