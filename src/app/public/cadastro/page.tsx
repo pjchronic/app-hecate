@@ -207,13 +207,16 @@ export default function Cadastro() {
         break;
 
       case "confirmSenha":
-        if (value !== objectCadastro.senha.content) {
+        if (
+          value !== objectCadastro.senha.content ||
+          objectCadastro.senha.content.length <= 8
+        ) {
           setObjectCadastro({
             ...objectCadastro,
             confirmSenha: {
               content: value,
               validation: { error: true, success: false },
-              msg: "As senhas não são iguais",
+              msg: "As senhas não são iguais ou não tem o número de caracteres necessários",
             },
           });
         } else {
@@ -252,6 +255,7 @@ export default function Cadastro() {
             error={objectCadastro.senha.validation?.error}
             success={objectCadastro.senha.validation?.success}
             msg={objectCadastro.senha.msg}
+            visibilityIconBtn
           />
 
           <GenericInputText

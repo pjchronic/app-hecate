@@ -67,6 +67,7 @@ export default function Login() {
             name="senha"
             onChange={handleChange}
             value={objectLogin.senha}
+            visibilityIconBtn
           />
           <TextLinks textAlign="right" href="/public/forgot-password">
             Esqueci minha senha...
