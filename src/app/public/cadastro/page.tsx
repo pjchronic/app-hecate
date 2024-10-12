@@ -92,7 +92,7 @@ export default function Cadastro() {
         handleAlert(data.message, true);
       } else {
         throw new Error(
-          "As senhas não conferem ou não estão tem os parâmetros necessários"
+          "As senhas não conferem ou não tem os parâmetros necessários"
         );
       }
     } catch (error: unknown) {
