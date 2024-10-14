@@ -37,7 +37,7 @@ export async function mailDelivery(packageDelivery: PackageDeliveryInterface) {
 
     case "forgotPassoword": // tratativa para emails de esqueci minha senha
       assunto = "Redefina sua senha";
-      from = "Redefinição de senha";
+      from = "redefinicaoDeSenha";
       template = (
         <ForgotPassword
           url={packageDelivery.url!}

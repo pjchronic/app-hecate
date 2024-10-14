@@ -1,11 +1,11 @@
 import { NextResponse, NextRequest } from "next/server";
-import { tablesInitializer } from "./utils/MiddlewaresFunctions/initdatabaseMiddleware";
 
 export async function middleware(request: NextRequest) {
-  const endPoint = request.nextUrl;
+  const endPoint = request.nextUrl.pathname;
 
   try {
-   // await tablesInitializer(); //middleware de inicialização de tabelas
+    console.log("Endpoint:", endPoint);
+    //colocar lógica de validação aqui
 
     return NextResponse.next();
   } catch (error) {
@@ -13,6 +13,9 @@ export async function middleware(request: NextRequest) {
   }
 }
 
-export const config = {
+
+// Usar o Matcher abaixo para definir as rotas que terão autenticação
+
+/* export const config = {
   matcher: "/api/:path*",
-};
+}; */

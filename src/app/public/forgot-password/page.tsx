@@ -184,7 +184,7 @@ export default function ForgotPassword() {
 
         <FlexForm onSubmit={handleSubmit}>
           <GenericInputText
-            label="Nome Completo:"
+            label="Nome completo:"
             name="nomeCompleto"
             value={objRedefinPassword.nomeCompleto.content}
             onChange={handleChange}
