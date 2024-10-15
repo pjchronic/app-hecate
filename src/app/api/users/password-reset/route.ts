@@ -5,6 +5,7 @@ import { mailDelivery } from "@/utils/resend";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 
+//#region ------ solicita redefinição
 async function forgotPassword(req: Request) {
   const body = await req.json();
 
@@ -59,6 +60,8 @@ async function forgotPassword(req: Request) {
     );
   }
 }
+
+//#region --------- faz redefinição
 
 async function resetPassword(req: Request) {
   const { senha } = await req.json();
