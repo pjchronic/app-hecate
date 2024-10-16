@@ -10,18 +10,6 @@ O app é destinado não só para os mestres de suas mesas, mas também para os j
 
 ----
 
-# índice
-
-- [Instalação](# Instalação)
-
-- [Bibliotecas utilizadas](# Bibliotecas utilizadas)
-
-
-
----
-
-
-
 # Instalação
 
 Ao clonar projeto, execute primeiro a instalação dos pacotes.
