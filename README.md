@@ -10,6 +10,16 @@ O app é destinado não só para os mestres de suas mesas, mas também para os j
 
 ----
 
+# Dependências pré instalação
+
+É necessário um **.env** com as variáveis de ambiente:
+
+- **RESEND_API_KEY:** Necessário para o uso da biblioteca Resend para o envio dos e-mails;
+- **JWT_SECRET:** É uma string aleatória de 32 bytes codificada em Base64;
+- **DOMINIO:** Para string URL que é enviada nos links de convite e redefinição de senha;
+
+---
+
 # Instalação
 
 Ao clonar projeto, execute primeiro a instalação dos pacotes.
