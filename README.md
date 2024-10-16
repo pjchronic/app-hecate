@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hecate - App
 
-## Getting Started
+## Do que se trata?
 
-First, run the development server:
+O Hecate - App é feito por um rpgista, para outros rpgistas. Se trata de uma aplicação para administrar suas fichas de RPG. O intuito do app é funcionar não só para armazenar as fichas de seus personagens mas também facilitar o a utilização no geral, como a usabilidade das fichas, acesso as informações com mais intuitividade, facilidade de criação e de upgrades entre níveis.
+
+O app é destinado não só para os mestres de suas mesas, mas também para os jogadores.
+
+**Neste momento ainda estamos em fase de construção! Contribuições são bem-vindas**
+
+----
+
+# índice
+
+- [Instalação](# Instalação)
+
+- [Bibliotecas utilizadas](# Bibliotecas utilizadas)
+
+
+
+---
+
+
+
+# Instalação
+
+Ao clonar projeto, execute primeiro a instalação dos pacotes.
+
+```bash
+npm install
+# ou
+yarn install
+# ou
+pnpm install
+# ou
+bun install
+```
+
+Em seguida para executar o projeto, rode o seguinte comando: 
 
 ```bash
 npm run dev
-# or
+# ou
 yarn dev
-# or
+# ou
 pnpm dev
-# or
+# ou
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+O projeto estará disponível para acesso via browser no link: [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Bibliotecas utilizadas
 
-## Learn More
+- [React mail](https://react.email)
 
-To learn more about Next.js, take a look at the following resources:
+- [TsParticles](https://particles.js.org)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Bcrypt](https://www.npmjs.com/package/bcrypt)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 
-## Deploy on Vercel
+- [Resend](https://www.resend.com/home)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [Sequelize](http://sequelize.org)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Sqlite](https://www.npmjs.com/package/sqlite3)
+
+- [Styled-Components](https://styled-components.com)
+  
+  
