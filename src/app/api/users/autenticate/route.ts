@@ -21,9 +21,9 @@ async function login(req: Request) {
         refreshToken: jwtGenerateToken(user.idUsuario, "30d"),
       };
 
-      return NextResponse.json({ data: objResponse }, { status: 200 });
+      return NextResponse.json(objResponse, { status: 200 });
     } else {
-     return NextResponse.json(
+      return NextResponse.json(
         { message: "Usuário ou senha inválidos" },
         { status: 401 }
       );
