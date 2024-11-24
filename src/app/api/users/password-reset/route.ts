@@ -65,7 +65,9 @@ async function forgotPassword(req: Request) {
 
 async function resetPassword(req: Request) {
   const { senha } = await req.json();
-  const token: string = getQueryString(req, "token");
+/*   const token: string = getQueryString(req, "token");
+ */
+  const token: string = req.headers.get('authorization')!;
 
   try {
     const verifyToken = jwtDecoderToken(token);

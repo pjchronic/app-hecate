@@ -8,6 +8,7 @@ import GenericAlert, {
 import GenericInputText from "@/Components/InputsText/GenericInputText/GenericInputText";
 import LoadingComponent from "@/Components/LoadingComponent/LoadingComponent";
 import TextH1 from "@/Components/TextComponents/TextH1";
+import { passwordService } from "@/services/password/passwordService";
 import { theme } from "@/theme/Theme";
 import { useTheme } from "@/utils/Context/themeContext";
 import { useRouter } from "next/navigation";
@@ -71,25 +72,16 @@ export default function ForgotPassword() {
         objRedefinPassword.email.validation.succsess &&
         objRedefinPassword.nomeCompleto.validation.succsess
       ) {
-        const response = await fetch(`/api/users/password-reset`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: objRedefinPassword.email.content,
-            nomeCompleto: objRedefinPassword.nomeCompleto.content,
-          }),
+        const response: any = await passwordService.redefinitionRequest({
+          email: objRedefinPassword.email.content,
+          nomeCompleto: objRedefinPassword.nomeCompleto.content,
         });
-        const data: { message: string } = await response.json();
 
-        handleAlert(data.message, true);
+        handleAlert(response.message, true);
 
-        if (response.ok) {
-          setTimeout(() => {
-            router.push("/public");
-          }, 5000);
-        }
+        setTimeout(() => {
+          router.push("/public");
+        }, 5000);
       } else {
         handleAlert(
           "Nome completo ou email estão inválidos de alguma forma",
@@ -98,6 +90,8 @@ export default function ForgotPassword() {
         return;
       }
     } catch (error: unknown) {
+      console.log(error);
+
       if (error instanceof Error) {
         handleAlert(error.message, true);
       } else {

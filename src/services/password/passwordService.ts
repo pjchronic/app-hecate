@@ -1,4 +1,4 @@
-import { tokenLoginInterface } from "@/app/api/users/interface";
+import { redefinitionPassRequestInterface } from "@/app/api/users/interface";
 
 async function request(
   method: string,
@@ -23,7 +23,7 @@ async function request(
     options.body = JSON.stringify(body);
   }
 
-  const response = await fetch(`/api/users/autenticate`, options);
+  const response = await fetch(`/api/users/password-reset`, options);
 
   if (!response.ok) {
     const errorBody = await response.json();
@@ -33,8 +33,11 @@ async function request(
   return response.json();
 }
 
-export const authService = {
-  login(authObject: tokenLoginInterface) {
-    return request("POST", false, null, authObject);
+export const passwordService = {
+  redefinitionRequest(body: redefinitionPassRequestInterface) {
+    return request("POST", false, null, body);
+  },
+  redefinitionPass(body: object, auth: string) {
+    return request("PATCH", true, auth, body);
   },
 };

@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import PasswordForm, {
   ObjInterface,
 } from "@/Components/PasswordForm/PasswordForm";
+import { passwordService } from "@/services/password/passwordService";
 
 export default function resetPassword() {
   const [token, setToken] = useState<string | null>();
@@ -21,7 +22,7 @@ export default function resetPassword() {
   });
   const [loading, setLoaging] = useState<boolean>(false);
   const router = useRouter();
-  const [passObj, setPassObj] = useState<ObjInterface>();  
+  const [passObj, setPassObj] = useState<ObjInterface>();
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -55,28 +56,18 @@ export default function resetPassword() {
         passObj!.senha.validation?.success &&
         passObj!.confirmSenha.validation?.success
       ) {
-        const response = await fetch(
-          `/api/users/password-reset?token=${token}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              senha: passObj!.confirmSenha.content,
-            }),
-          }
+
+        const response: any = await passwordService.redefinitionPass(
+          { senha: passObj!.confirmSenha.content },
+          token!
         );
 
-        const data: { message: string } = await response.json();
+        handleAlert(response.message, true);
 
-        handleAlert(data.message, true);
-
-        if (response.ok) {
-          setTimeout(() => {
-            router.push("/public");
-          }, 5000);
-        }
+        setTimeout(() => {
+          router.push("/public");
+        }, 5000);
+        
       } else {
         throw new Error(
           "As senhas não conferem ou não tem os parâmetros necessários"
